@@ -1,3 +1,4 @@
+
 export type Rarity = 'Common' | 'Uncommon' | 'Rare' | 'Epic' | 'Legendary' | 'Mythic' | 'Exotic';
 
 export interface OreData {
@@ -5,6 +6,13 @@ export interface OreData {
   rarity: Rarity;
   minKg: number;
   buffType: string;
+  maxBuff?: string;
+}
+
+export interface ModifierData {
+  name: string;
+  buffType: string;
+  sellValueMult: string;
 }
 
 export interface BuildEquipment {

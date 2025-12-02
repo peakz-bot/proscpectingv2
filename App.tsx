@@ -1,8 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import Snowfall from './components/Snowfall';
 import BuildCard from './components/BuildCard';
 import BuildDetailModal from './components/BuildDetailModal';
 import OreTracker from './components/OreTracker';
+import BuffReference from './components/BuffReference';
 import Logo from './components/Logo';
 import { BUILDS } from './constants';
 import { Build } from './types';
@@ -10,7 +12,7 @@ import { Sun, Moon } from 'lucide-react';
 
 const App: React.FC = () => {
   const [selectedBuild, setSelectedBuild] = useState<Build | null>(null);
-  const [currentView, setCurrentView] = useState<'builds' | 'tracker'>('builds');
+  const [currentView, setCurrentView] = useState<'builds' | 'tracker' | 'reference'>('builds');
   
   // Theme State
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
@@ -78,10 +80,10 @@ const App: React.FC = () => {
            <div className="flex items-center gap-3 bg-white dark:bg-slate-800 p-2 rounded-full shadow-sm border border-slate-200 dark:border-slate-700">
              
              {/* Navigation Pills */}
-             <div className="flex bg-slate-100 dark:bg-slate-700 rounded-full p-1">
+             <div className="flex bg-slate-100 dark:bg-slate-700 rounded-full p-1 overflow-x-auto">
                <button 
                  onClick={() => setCurrentView('builds')}
-                 className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${
+                 className={`px-4 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
                    currentView === 'builds' 
                    ? 'bg-white dark:bg-slate-600 text-xmas-green shadow-sm' 
                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
@@ -91,7 +93,7 @@ const App: React.FC = () => {
                </button>
                <button 
                  onClick={() => setCurrentView('tracker')}
-                 className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${
+                 className={`px-4 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
                    currentView === 'tracker' 
                    ? 'bg-white dark:bg-slate-600 text-xmas-green shadow-sm' 
                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
@@ -99,12 +101,22 @@ const App: React.FC = () => {
                >
                  Collection
                </button>
+               <button 
+                 onClick={() => setCurrentView('reference')}
+                 className={`px-4 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
+                   currentView === 'reference' 
+                   ? 'bg-white dark:bg-slate-600 text-xmas-green shadow-sm' 
+                   : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                 }`}
+               >
+                 Reference
+               </button>
              </div>
 
              {/* Theme Toggle */}
              <button
                 onClick={() => setIsDarkMode(!isDarkMode)}
-                className="p-2.5 rounded-full text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                className="p-2.5 rounded-full text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors shrink-0"
              >
                 {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
              </button>
@@ -113,7 +125,7 @@ const App: React.FC = () => {
 
         {/* Content */}
         <main>
-          {currentView === 'builds' ? (
+          {currentView === 'builds' && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fadeIn">
               {BUILDS.map((build) => (
                 <BuildCard 
@@ -123,8 +135,14 @@ const App: React.FC = () => {
                 />
               ))}
             </div>
-          ) : (
+          )}
+          
+          {currentView === 'tracker' && (
             <OreTracker ownedOres={ownedOres} onToggle={toggleOre} />
+          )}
+
+          {currentView === 'reference' && (
+            <BuffReference />
           )}
         </main>
 
