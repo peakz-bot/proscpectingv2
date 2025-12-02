@@ -1,7 +1,7 @@
 
 import React, { useMemo } from 'react';
 import { ORE_DATABASE, MODIFIERS } from '../constants';
-import { Rarity } from '../types';
+import { Rarity, OreData } from '../types';
 
 const RARITY_ORDER: Rarity[] = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic', 'Exotic'];
 
@@ -15,11 +15,16 @@ const RarityStyles: Record<Rarity, string> = {
   Exotic: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/40 dark:text-red-300 dark:border-red-800',
 };
 
+// Interface for Ore that has been grouped with others of identical stats
+interface GroupedOre extends OreData {
+  names: string[];
+}
+
 const BuffReference: React.FC = () => {
   const groupedOres = useMemo(() => {
     const groups: Partial<Record<Rarity, typeof ORE_DATABASE[string][]>> = {};
     Object.values(ORE_DATABASE).forEach(ore => {
-      // Skip "ANY" fillers for this specific chart if desired, but keeping them might be good context
+      // Skip "ANY" fillers for this specific chart
       if (ore.name.startsWith("ANY")) return; 
       
       if (!groups[ore.rarity]) groups[ore.rarity] = [];
@@ -27,6 +32,32 @@ const BuffReference: React.FC = () => {
     });
     return groups;
   }, []);
+
+  const getGroupedOres = (ores: OreData[]): GroupedOre[] => {
+    const groups: Record<string, GroupedOre> = {};
+    
+    ores.forEach(ore => {
+      // Create a unique key based on the stats we want to match
+      const key = `${ore.buffType.toLowerCase()}-${ore.minKg}-${ore.maxBuff}`;
+      
+      if (!groups[key]) {
+        groups[key] = {
+          ...ore,
+          names: [ore.name]
+        };
+      } else {
+        groups[key].names.push(ore.name);
+      }
+    });
+
+    // Convert back to array and sort
+    return Object.values(groups).sort((a, b) => {
+      // Sort priority: Buff Type -> Min Kg
+      const buffCompare = a.buffType.localeCompare(b.buffType);
+      if (buffCompare !== 0) return buffCompare;
+      return a.minKg - b.minKg;
+    });
+  };
 
   return (
     <div className="animate-fadeIn pb-20">
@@ -45,38 +76,56 @@ const BuffReference: React.FC = () => {
         <div className="inline-flex gap-4 min-w-full lg:min-w-0 lg:grid lg:grid-cols-4 xl:grid-cols-8">
           
           {/* Ores Columns */}
-          {RARITY_ORDER.map((rarity) => (
-            <div key={rarity} className="w-64 lg:w-auto flex-shrink-0 flex flex-col">
-              {/* Column Header */}
-              <div className={`p-3 text-center font-bold text-sm uppercase tracking-wider border-t-4 rounded-t-lg ${RarityStyles[rarity].replace('bg-', 'border-').split(' ')[2]} bg-white dark:bg-slate-800 shadow-sm mb-2`}>
-                {rarity}
-              </div>
+          {RARITY_ORDER.map((rarity) => {
+            const processedOres = getGroupedOres(groupedOres[rarity] || []);
+            
+            return (
+              <div key={rarity} className="w-64 lg:w-auto flex-shrink-0 flex flex-col">
+                {/* Column Header */}
+                <div className={`p-3 text-center font-bold text-sm uppercase tracking-wider border-t-4 rounded-t-lg ${RarityStyles[rarity].replace('bg-', 'border-').split(' ')[2]} bg-white dark:bg-slate-800 shadow-sm mb-2`}>
+                  {rarity}
+                </div>
 
-              {/* Ore List */}
-              <div className="flex-1 space-y-2">
-                {groupedOres[rarity]?.map((ore) => (
-                  <div key={ore.name} className="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700 text-sm">
-                    <div className="font-bold text-slate-800 dark:text-white mb-1">{ore.name}</div>
-                    
-                    <div className="flex justify-between items-start text-xs gap-2">
-                      <span className="text-slate-500 dark:text-slate-400 italic flex-1">{ore.buffType}</span>
-                    </div>
+                {/* Ore List */}
+                <div className="flex-1 space-y-2">
+                  {processedOres.map((group) => (
+                    <div key={group.names.join('')} className="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700 text-sm hover:shadow-md transition-shadow">
+                      
+                      {/* Names List - Stacked for clarity */}
+                      <div className="flex flex-col gap-1.5 mb-2.5">
+                        {group.names.map((name, idx) => (
+                          <div 
+                            key={idx} 
+                            className={`
+                              font-bold text-slate-800 dark:text-white leading-tight
+                              ${group.names.length > 1 && idx !== group.names.length - 1 ? 'pb-1.5 border-b border-dashed border-slate-200 dark:border-slate-700' : ''}
+                            `}
+                          >
+                            {name}
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <div className="flex justify-between items-start text-xs gap-2">
+                        <span className="text-slate-500 dark:text-slate-400 italic flex-1">{group.buffType}</span>
+                      </div>
 
-                    <div className="mt-2 pt-2 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center text-xs font-mono">
-                      <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-400 uppercase">Min Kg</span>
-                        <span className="font-semibold text-slate-600 dark:text-slate-300">{ore.minKg}</span>
-                      </div>
-                      <div className="flex flex-col text-right">
-                        <span className="text-[10px] text-slate-400 uppercase">Max Buff</span>
-                        <span className="font-bold text-xmas-green dark:text-green-400">{ore.maxBuff || "?"}</span>
+                      <div className="mt-2 pt-2 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center text-xs font-mono">
+                        <div className="flex flex-col">
+                          <span className="text-[10px] text-slate-400 uppercase">Min Kg</span>
+                          <span className="font-semibold text-slate-600 dark:text-slate-300">{group.minKg}</span>
+                        </div>
+                        <div className="flex flex-col text-right">
+                          <span className="text-[10px] text-slate-400 uppercase">Max Buff</span>
+                          <span className="font-bold text-xmas-green dark:text-green-400">{group.maxBuff || "?"}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           {/* Modifiers Column */}
           <div className="w-64 lg:w-auto flex-shrink-0 flex flex-col">
@@ -85,7 +134,7 @@ const BuffReference: React.FC = () => {
               </div>
               <div className="flex-1 space-y-2">
                 {MODIFIERS.map((mod) => (
-                   <div key={mod.name} className="bg-emerald-50 dark:bg-emerald-900/10 p-3 rounded-lg shadow-sm border border-emerald-100 dark:border-emerald-800 text-sm">
+                   <div key={mod.name} className="bg-emerald-50 dark:bg-emerald-900/10 p-3 rounded-lg shadow-sm border border-emerald-100 dark:border-emerald-800 text-sm hover:shadow-md transition-shadow">
                     <div className="font-bold text-emerald-900 dark:text-emerald-300 mb-1">{mod.name}</div>
                     <div className="text-xs text-emerald-700 dark:text-emerald-400 mb-2">{mod.buffType}</div>
                     <div className="pt-2 border-t border-emerald-100 dark:border-emerald-800/30 flex justify-between items-center text-xs">

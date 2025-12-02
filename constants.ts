@@ -9,21 +9,29 @@ export const ORE_DATABASE: Record<string, OreData> = {
   "Bloodstone": { name: "Bloodstone", rarity: "Exotic", minKg: 40, buffType: "Size Boost", maxBuff: "0.56x" },
   "Pumpkin Soul": { name: "Pumpkin Soul", rarity: "Exotic", minKg: 40, buffType: "Size Boost", maxBuff: "0.56x" },
   "Dinosaur Skull": { name: "Dinosaur Skull", rarity: "Exotic", minKg: 100, buffType: "Size/Sell Boost", maxBuff: "0.32x, 0.4x" },
+  "Astral Spore": { name: "Astral Spore", rarity: "Exotic", minKg: 20, buffType: "Dig Speed", maxBuff: "0.8x" },
+  "Umbrite": { name: "Umbrite", rarity: "Exotic", minKg: 30, buffType: "Dig/Shake Speed", maxBuff: "0.4x" },
   
   // Mythic
   "Flarebloom": { name: "Flarebloom", rarity: "Mythic", minKg: 21, buffType: "Luck", maxBuff: "0.75x" },
   "Inferlume": { name: "Inferlume", rarity: "Mythic", minKg: 20, buffType: "Luck", maxBuff: "0.5x" },
+  "Pink Diamond": { name: "Pink Diamond", rarity: "Mythic", minKg: 20, buffType: "Luck", maxBuff: "0.5x" },
+  "Chrysoberyl": { name: "Chrysoberyl", rarity: "Mythic", minKg: 21, buffType: "Luck", maxBuff: "0.5x" },
   "Vortessence": { name: "Vortessence", rarity: "Mythic", minKg: 20, buffType: "Capacity", maxBuff: "0.5x" },
   "Painite": { name: "Painite", rarity: "Mythic", minKg: 20, buffType: "Size Boost", maxBuff: "0.35x" },
   "Star Garnet": { name: "Star Garnet", rarity: "Mythic", minKg: 20, buffType: "Size Boost", maxBuff: "0.35x" },
+  "Red Beryl": { name: "Red Beryl", rarity: "Mythic", minKg: 20, buffType: "Size Boost", maxBuff: "0.35x" },
   "Prismara": { name: "Prismara", rarity: "Mythic", minKg: 20, buffType: "All Stats", maxBuff: "0.25x each" },
   "Mythril": { name: "Mythril", rarity: "Mythic", minKg: 60, buffType: "Shake Strength", maxBuff: "0.5x" },
+  "Volcanic Core": { name: "Volcanic Core", rarity: "Mythic", minKg: 20, buffType: "Dig/Size", maxBuff: "0.25x, 0.2x" },
+  "Frostshard": { name: "Frostshard", rarity: "Mythic", minKg: 20, buffType: "Dig Strength", maxBuff: "0.5x" },
+  "Radiant Gold": { name: "Radiant Gold", rarity: "Mythic", minKg: 60, buffType: "Sell Boost", maxBuff: "0.5x" },
 
   // Legendary
   "Luminum": { name: "Luminum", rarity: "Legendary", minKg: 40, buffType: "Capacity", maxBuff: "0.3x" },
   "Catseye": { name: "Catseye", rarity: "Legendary", minKg: 20, buffType: "Capacity", maxBuff: "0.3x" },
-  "Diamond": { name: "Diamond", rarity: "Legendary", minKg: 20, buffType: "Luck", maxBuff: "0.3x" },
   "Firefly Stone": { name: "Firefly Stone", rarity: "Legendary", minKg: 60, buffType: "Capacity", maxBuff: "0.3x" },
+  "Diamond": { name: "Diamond", rarity: "Legendary", minKg: 20, buffType: "Luck", maxBuff: "0.3x" },
   "Dragon Bone": { name: "Dragon Bone", rarity: "Legendary", minKg: 50, buffType: "Size Boost", maxBuff: "0.21x" },
   "Cinnabar": { name: "Cinnabar", rarity: "Legendary", minKg: 20, buffType: "Size Boost", maxBuff: "0.21x" },
   "Volcanic Key": { name: "Volcanic Key", rarity: "Legendary", minKg: 20, buffType: "Size Boost", maxBuff: "0.21x" },
@@ -31,6 +39,14 @@ export const ORE_DATABASE: Record<string, OreData> = {
   "Rose Gold": { name: "Rose Gold", rarity: "Legendary", minKg: 40, buffType: "Shake Strength", maxBuff: "0.3x" },
   "Starshine": { name: "Starshine", rarity: "Legendary", minKg: 20, buffType: "Dig/Shake", maxBuff: "0.15x" },
   "Specterite": { name: "Specterite", rarity: "Legendary", minKg: 10, buffType: "Shake Speed", maxBuff: "0.3x" },
+  "Aetherite": { name: "Aetherite", rarity: "Legendary", minKg: 20, buffType: "Dig Speed", maxBuff: "0.3x" },
+  "Aquamarine": { name: "Aquamarine", rarity: "Legendary", minKg: 20, buffType: "Dig Speed", maxBuff: "0.3x" },
+  "Lost Soul": { name: "Lost Soul", rarity: "Legendary", minKg: 20, buffType: "Dig Speed", maxBuff: "0.3x" },
+  "Gloomcap": { name: "Gloomcap", rarity: "Legendary", minKg: 20, buffType: "Dig Speed", maxBuff: "0.3x" },
+  "Bismuth": { name: "Bismuth", rarity: "Legendary", minKg: 78, buffType: "Dig Speed", maxBuff: "0.3x" },
+  "Uranium": { name: "Uranium", rarity: "Legendary", minKg: 59, buffType: "Modifier Boost", maxBuff: "0.3x" },
+  "Tourmaline": { name: "Tourmaline", rarity: "Legendary", minKg: 25, buffType: "Sell Boost", maxBuff: "0.3x" },
+  "Palladium": { name: "Palladium", rarity: "Legendary", minKg: 40, buffType: "Sell Boost", maxBuff: "0.3x" },
 
   // Epic
   "Emerald": { name: "Emerald", rarity: "Epic", minKg: 20, buffType: "Luck", maxBuff: "0.2x" },
@@ -42,12 +58,28 @@ export const ORE_DATABASE: Record<string, OreData> = {
   "Bone": { name: "Bone", rarity: "Epic", minKg: 47, buffType: "Size Boost", maxBuff: "0.14x" },
   "Ashvein": { name: "Ashvein", rarity: "Epic", minKg: 20, buffType: "Size Boost", maxBuff: "0.14x" },
   "Moonstone": { name: "Moonstone", rarity: "Epic", minKg: 48, buffType: "Shake Speed", maxBuff: "0.2x" },
+  "Aurorite": { name: "Aurorite", rarity: "Epic", minKg: 30, buffType: "Dig Speed", maxBuff: "0.2x" },
+  "Borealite": { name: "Borealite", rarity: "Epic", minKg: 20, buffType: "Dig Speed", maxBuff: "0.2x" },
+  "Cobalt": { name: "Cobalt", rarity: "Epic", minKg: 38, buffType: "Dig Speed", maxBuff: "0.2x" },
+  "Iridium": { name: "Iridium", rarity: "Epic", minKg: 40, buffType: "Dig Speed", maxBuff: "0.2x" },
+  "Lightshard": { name: "Lightshard", rarity: "Epic", minKg: 20, buffType: "Dig Speed", maxBuff: "0.2x" },
+  "Glowmoss": { name: "Glowmoss", rarity: "Epic", minKg: 60, buffType: "Modifier Boost", maxBuff: "0.2x" },
+  "Pyronium": { name: "Pyronium", rarity: "Epic", minKg: 55, buffType: "Sell Boost", maxBuff: "0.2x" },
   
   // Rare
   "Ruby": { name: "Ruby", rarity: "Rare", minKg: 20, buffType: "Shake Strength", maxBuff: "0.13x" },
   "Meteoric Iron": { name: "Meteoric Iron", rarity: "Rare", minKg: 40, buffType: "Shake Strength", maxBuff: "0.13x" },
   "Peridot": { name: "Peridot", rarity: "Rare", minKg: 20, buffType: "Luck", maxBuff: "0.13x" },
   "Silver Clamshell": { name: "Silver Clamshell", rarity: "Rare", minKg: 21, buffType: "Shake Speed", maxBuff: "0.13x" },
+  "Glacial Quartz": { name: "Glacial Quartz", rarity: "Rare", minKg: 40, buffType: "Dig Speed", maxBuff: "0.13x" },
+  "Azuralite": { name: "Azuralite", rarity: "Rare", minKg: 30, buffType: "Dig Speed", maxBuff: "0.13x" },
+  "Lapiz Lazuli": { name: "Lapiz Lazuli", rarity: "Rare", minKg: 32, buffType: "Dig Speed", maxBuff: "0.13x" },
+  "Gloomberry": { name: "Gloomberry", rarity: "Rare", minKg: 40, buffType: "Dig Speed", maxBuff: "0.13x" },
+  "Jade": { name: "Jade", rarity: "Rare", minKg: 40, buffType: "Modifier Boost", maxBuff: "0.13x" },
+  "Onyx": { name: "Onyx", rarity: "Rare", minKg: 32, buffType: "Modifier Boost", maxBuff: "0.13x" },
+  "Diopside": { name: "Diopside", rarity: "Rare", minKg: 21, buffType: "Modifier Boost", maxBuff: "0.13x" },
+  "Amber": { name: "Amber", rarity: "Rare", minKg: 21, buffType: "Sell Boost", maxBuff: "0.13x" },
+  "Pyrelith": { name: "Pyrelith", rarity: "Rare", minKg: 30, buffType: "Sell Boost", maxBuff: "0.13x" },
   "ANY Rare": { name: "ANY Rare", rarity: "Rare", minKg: 0, buffType: "Filler" },
 
   // Uncommon
@@ -58,6 +90,10 @@ export const ORE_DATABASE: Record<string, OreData> = {
   "Zircon": { name: "Zircon", rarity: "Uncommon", minKg: 15, buffType: "Size Boost", maxBuff: "0.05x" },
   "Rock Candy": { name: "Rock Candy", rarity: "Uncommon", minKg: 55, buffType: "Size Boost", maxBuff: "0.05x" },
   "Sapphire": { name: "Sapphire", rarity: "Uncommon", minKg: 21, buffType: "Dig Speed", maxBuff: "0.08x" },
+  "Titanium": { name: "Titanium", rarity: "Uncommon", minKg: 40, buffType: "Dig Speed", maxBuff: "0.08x" },
+  "Malachite": { name: "Malachite", rarity: "Uncommon", minKg: 18, buffType: "Modifier Boost", maxBuff: "0.08x" },
+  "Glowberry": { name: "Glowberry", rarity: "Uncommon", minKg: 40, buffType: "Sell Boost", maxBuff: "0.08x" },
+  "Electrum": { name: "Electrum", rarity: "Uncommon", minKg: 40, buffType: "Sell Boost", maxBuff: "0.08x" },
   "ANY Uncommon": { name: "ANY Uncommon", rarity: "Uncommon", minKg: 0, buffType: "Filler" },
 
   // Common
@@ -67,6 +103,10 @@ export const ORE_DATABASE: Record<string, OreData> = {
   "Pyrite": { name: "Pyrite", rarity: "Common", minKg: 55, buffType: "Capacity", maxBuff: "0.05x" },
   "Obsidian": { name: "Obsidian", rarity: "Common", minKg: 30, buffType: "Size Boost", maxBuff: "0.04x" },
   "Copper": { name: "Copper", rarity: "Common", minKg: 60, buffType: "Size Boost", maxBuff: "0.04x" },
+  "Blue Ice": { name: "Blue Ice", rarity: "Common", minKg: 39, buffType: "Dig Speed", maxBuff: "0.05x" },
+  "Amethyst": { name: "Amethyst", rarity: "Common", minKg: 16, buffType: "Dig Speed", maxBuff: "0.05x" },
+  "Platinum": { name: "Platinum", rarity: "Common", minKg: 32, buffType: "Dig Speed", maxBuff: "0.05x" },
+  "Gold": { name: "Gold", rarity: "Common", minKg: 20, buffType: "Sell Boost", maxBuff: "0.05x" },
   "ANY Common": { name: "ANY Common", rarity: "Common", minKg: 0, buffType: "Filler" },
 };
 
