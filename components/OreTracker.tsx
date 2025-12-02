@@ -46,13 +46,13 @@ const OreTracker: React.FC<OreTrackerProps> = ({ ownedOres, onToggle }) => {
          </div>
          
          <div className="flex-1 w-full flex items-center gap-4">
-             <div className="flex-grow h-4 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+             <div className="flex-grow h-6 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden shadow-inner border border-slate-200 dark:border-slate-600">
                 <div 
-                  className="h-full bg-gradient-to-r from-xmas-green to-xmas-lightGreen transition-all duration-700 ease-out"
+                  className="h-full rounded-full animate-candy-stripe transition-all duration-700 ease-out shadow-sm"
                   style={{ width: `${progress}%` }}
                 />
              </div>
-             <div className="font-holiday text-2xl font-bold text-xmas-green dark:text-green-400 w-16 text-right">
+             <div className="font-holiday text-2xl font-bold text-xmas-red dark:text-red-400 w-16 text-right">
                {progress}%
              </div>
          </div>

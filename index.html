@@ -6,6 +6,10 @@
     <title>Prospecting Builds - Holiday Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Christmas Tree Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22 fill=%22none%22><path d=%22M50 10 L85 90 H15 Z%22 fill=%22%23165b33%22 stroke=%22%230f3d22%22 stroke-width=%223%22/><circle cx=%2250%22 cy=%2210%22 r=%228%22 fill=%22%23fbbf24%22/></svg>" type="image/svg+xml">
+
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -80,6 +84,33 @@
       }
       ::-webkit-scrollbar-thumb:hover {
         background-color: #94a3b8;
+      }
+
+      /* Candy Cane Animation */
+      @keyframes candyStripe {
+        0% { background-position: 0 0; }
+        100% { background-position: 28px 0; }
+      }
+      .animate-candy-stripe {
+        background-image: repeating-linear-gradient(
+          45deg,
+          #d42426,
+          #d42426 10px,
+          #f8fafc 10px,
+          #f8fafc 20px
+        );
+        background-size: 28px 28px;
+        animation: candyStripe 1s linear infinite;
+      }
+      /* Dark mode adjustment for candy stripe to be less blinding */
+      html.dark .animate-candy-stripe {
+        background-image: repeating-linear-gradient(
+          45deg,
+          #991b1b,
+          #991b1b 10px,
+          #e2e8f0 10px,
+          #e2e8f0 20px
+        );
       }
     </style>
   <script type="importmap">
