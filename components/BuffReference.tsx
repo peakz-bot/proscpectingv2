@@ -1,7 +1,8 @@
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ORE_DATABASE, MODIFIERS } from '../constants';
 import { Rarity, OreData } from '../types';
+import { Search } from 'lucide-react';
 
 const RARITY_ORDER: Rarity[] = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic', 'Exotic'];
 
@@ -21,17 +22,28 @@ interface GroupedOre extends OreData {
 }
 
 const BuffReference: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+
   const groupedOres = useMemo(() => {
     const groups: Partial<Record<Rarity, typeof ORE_DATABASE[string][]>> = {};
+    const query = searchQuery.toLowerCase().trim();
+
     Object.values(ORE_DATABASE).forEach(ore => {
       // Skip "ANY" fillers for this specific chart
       if (ore.name.startsWith("ANY")) return; 
       
+      // Filter Logic
+      if (query) {
+        const matchesName = ore.name.toLowerCase().includes(query);
+        const matchesBuff = ore.buffType.toLowerCase().includes(query);
+        if (!matchesName && !matchesBuff) return;
+      }
+
       if (!groups[ore.rarity]) groups[ore.rarity] = [];
       groups[ore.rarity]!.push(ore);
     });
     return groups;
-  }, []);
+  }, [searchQuery]);
 
   const getGroupedOres = (ores: OreData[]): GroupedOre[] => {
     const groups: Record<string, GroupedOre> = {};
@@ -63,10 +75,24 @@ const BuffReference: React.FC = () => {
     <div className="animate-fadeIn pb-20">
       
       {/* Header */}
-      <div className="text-center mb-10">
+      <div className="text-center mb-8">
         <h2 className="font-holiday text-3xl font-bold text-slate-900 dark:text-white mb-2">
           Museum Buff Reference
         </h2>
+      </div>
+
+      {/* Search Box */}
+      <div className="max-w-md mx-auto mb-10 relative z-10">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+           <Search size={20} />
+        </div>
+        <input 
+          type="text" 
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search ore name or buff type..."
+          className="w-full pl-12 pr-4 py-3 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-soft focus:ring-2 focus:ring-xmas-red outline-none transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+        />
       </div>
 
       <div className="overflow-x-auto pb-4 -mx-4 px-4">
@@ -74,7 +100,10 @@ const BuffReference: React.FC = () => {
           
           {/* Ores Columns */}
           {RARITY_ORDER.map((rarity) => {
-            const processedOres = getGroupedOres(groupedOres[rarity] || []);
+            const oresInRarity = groupedOres[rarity] || [];
+            if (searchQuery && oresInRarity.length === 0) return null; // Hide empty columns when searching
+
+            const processedOres = getGroupedOres(oresInRarity);
             
             return (
               <div key={rarity} className="w-64 lg:w-auto flex-shrink-0 flex flex-col">
@@ -124,24 +153,26 @@ const BuffReference: React.FC = () => {
             );
           })}
 
-          {/* Modifiers Column */}
-          <div className="w-64 lg:w-auto flex-shrink-0 flex flex-col">
-              <div className="p-3 text-center font-bold text-sm uppercase tracking-wider border-t-4 rounded-t-lg border-emerald-500 bg-white dark:bg-slate-800 shadow-sm mb-2">
-                Modifiers
-              </div>
-              <div className="flex-1 space-y-2">
-                {MODIFIERS.map((mod) => (
-                   <div key={mod.name} className="bg-emerald-50 dark:bg-emerald-900/10 p-3 rounded-lg shadow-sm border border-emerald-100 dark:border-emerald-800 text-sm hover:shadow-md transition-shadow">
-                    <div className="font-bold text-emerald-900 dark:text-emerald-300 mb-1">{mod.name}</div>
-                    <div className="text-xs text-emerald-700 dark:text-emerald-400 mb-2">{mod.buffType}</div>
-                    <div className="pt-2 border-t border-emerald-100 dark:border-emerald-800/30 flex justify-between items-center text-xs">
-                        <span className="text-[10px] text-emerald-600/70 uppercase">Sell Value</span>
-                        <span className="font-bold text-emerald-700 dark:text-emerald-300">{mod.sellValueMult}</span>
+          {/* Modifiers Column - Only show if matches or no search */}
+          {(!searchQuery || MODIFIERS.some(m => m.name.toLowerCase().includes(searchQuery.toLowerCase()) || m.buffType.toLowerCase().includes(searchQuery.toLowerCase()))) && (
+            <div className="w-64 lg:w-auto flex-shrink-0 flex flex-col">
+                <div className="p-3 text-center font-bold text-sm uppercase tracking-wider border-t-4 rounded-t-lg border-emerald-500 bg-white dark:bg-slate-800 shadow-sm mb-2">
+                  Modifiers
+                </div>
+                <div className="flex-1 space-y-2">
+                  {MODIFIERS.filter(m => !searchQuery || m.name.toLowerCase().includes(searchQuery.toLowerCase()) || m.buffType.toLowerCase().includes(searchQuery.toLowerCase())).map((mod) => (
+                    <div key={mod.name} className="bg-emerald-50 dark:bg-emerald-900/10 p-3 rounded-lg shadow-sm border border-emerald-100 dark:border-emerald-800 text-sm hover:shadow-md transition-shadow">
+                      <div className="font-bold text-emerald-900 dark:text-emerald-300 mb-1">{mod.name}</div>
+                      <div className="text-xs text-emerald-700 dark:text-emerald-400 mb-2">{mod.buffType}</div>
+                      <div className="pt-2 border-t border-emerald-100 dark:border-emerald-800/30 flex justify-between items-center text-xs">
+                          <span className="text-[10px] text-emerald-600/70 uppercase">Sell Value</span>
+                          <span className="font-bold text-emerald-700 dark:text-emerald-300">{mod.sellValueMult}</span>
+                      </div>
                     </div>
-                   </div>
-                ))}
-              </div>
-          </div>
+                  ))}
+                </div>
+            </div>
+          )}
 
         </div>
       </div>
