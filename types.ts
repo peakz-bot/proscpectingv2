@@ -30,3 +30,14 @@ export interface Build {
   museumOres: string[]; // List of Ore Names
   notes?: string;
 }
+
+export interface MutationRecipe {
+  item: string;
+  mineral: string;
+}
+
+export interface MutationStat {
+  type: string;
+  chance: string;
+  multiplier: string;
+}

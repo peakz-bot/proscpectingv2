@@ -1,5 +1,5 @@
 
-import { Build, OreData, ModifierData } from './types';
+import { Build, OreData, ModifierData, MutationRecipe, Rarity, MutationStat } from './types';
 
 export const ORE_DATABASE: Record<string, OreData> = {
   // Exotic
@@ -243,4 +243,75 @@ export const BUILDS: Build[] = [
     ],
     notes: "Voidstone in Museum is optional."
   }
+];
+
+export const MUTATION_RECIPES: Partial<Record<Rarity, MutationRecipe[]>> = {
+  Common: [
+    { item: "Amethyst Pendant", mineral: "Amethyst" },
+    { item: "Garden Glove", mineral: "Titanium" },
+    { item: "Gold Ring", mineral: "Gold" },
+    { item: "Titanium Ring", mineral: "Titanium" },
+  ],
+  Uncommon: [
+    { item: "Pearl Necklace", mineral: "Pearl" },
+    { item: "Topaz Necklace", mineral: "Topaz" },
+    { item: "Jade Armband", mineral: "Jade" },
+    { item: "Smoke Ring", mineral: "Smoky Quartz" },
+  ],
+  Rare: [
+    { item: "Lapis Armband", mineral: "Lapis Lazuli" },
+    { item: "Speed Coil", mineral: "Meteoric Iron" },
+    { item: "Meteor Ring", mineral: "Meteoric Iron" },
+    { item: "Ruby Ring", mineral: "Ruby" },
+  ],
+  Epic: [
+    { item: "Opal Amulet", mineral: "Opal" },
+    { item: "Gravity Coil", mineral: "Osmium" },
+    { item: "Heart of the Ocean", mineral: "Golden Pearl" },
+    { item: "Moon Ring", mineral: "Iridium" },
+  ],
+  Legendary: [
+    { item: "Mass Accumulator", mineral: "Uranium" },
+    { item: "Spider Bowtie", mineral: "Catseye" },
+    { item: "Crown", mineral: "Diamond" },
+    { item: "Dragon Claw", mineral: "Dragon Bone" },
+    { item: "Guiding Light", mineral: "Catseye" },
+    { item: "Lightkeeper's Ring", mineral: "Luminum" },
+    { item: "Ring of Harvest", mineral: "Lost Soul" },
+  ],
+  Mythic: [
+    { item: "Phoenix Heart", mineral: "Inferlume" },
+    { item: "Celestial Rings", mineral: "Vortessence" },
+    { item: "Amulet of Life", mineral: "Prismara" },
+    { item: "Amulet of Spirits", mineral: "Painite" },
+    { item: "Royal Federation Crown", mineral: "Pink Diamond" },
+    { item: "Phoenix Wings", mineral: "Flarebloom" },
+    { item: "Cryogenic Preserver", mineral: "Mythril" },
+    { item: "Candy Sack", mineral: "Vortessence" },
+    { item: "Prismatic Star", mineral: "Pink Diamond" },
+    { item: "Apocalypse Bringer", mineral: "Painite" },
+    { item: "Mythril Ring", mineral: "Mythril" },
+    { item: "Ring of Thorns", mineral: "Painite" },
+    { item: "Purifying Ring", mineral: "Chrysoberyl" },
+    { item: "Solar Ring", mineral: "Volcanic Core" },
+  ],
+  Exotic: [
+    { item: "Frostthorn Pendant", mineral: "Cryonic Artifact" },
+    { item: "Venomshank", mineral: "Bloodstone" },
+    { item: "Fossilized Crown", mineral: "Dinosaur Skull" },
+    { item: "Antlers of Life", mineral: "Vineheart" },
+    { item: "Witch Hat", mineral: "Cryonic Artifact" },
+    { item: "Pumpkin Lord", mineral: "Astral Spore" },
+    { item: "Vortex Ring", mineral: "Voidstone" },
+    { item: "Umbrite Ring", mineral: "Umbrite" },
+    { item: "Otherworldly Ring", mineral: "Vineheart" },
+  ]
+};
+
+export const MUTATION_STATS: MutationStat[] = [
+  { type: "Prismatic", chance: "0.63%", multiplier: "1.6x" },
+  { type: "Diamond", chance: "2.4%", multiplier: "1.35x" },
+  { type: "Gold", chance: "6.3%", multiplier: "1.2x" },
+  { type: "Silver", chance: "16%", multiplier: "1.1x" },
+  { type: "None", chance: "75%", multiplier: "-" },
 ];

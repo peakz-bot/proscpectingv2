@@ -5,6 +5,7 @@ import BuildCard from './components/BuildCard';
 import BuildDetailModal from './components/BuildDetailModal';
 import OreTracker from './components/OreTracker';
 import BuffReference from './components/BuffReference';
+import MutationReference from './components/MutationReference';
 import Logo from './components/Logo';
 import { BUILDS } from './constants';
 import { Build } from './types';
@@ -12,7 +13,7 @@ import { Sun, Moon } from 'lucide-react';
 
 const App: React.FC = () => {
   const [selectedBuild, setSelectedBuild] = useState<Build | null>(null);
-  const [currentView, setCurrentView] = useState<'builds' | 'tracker' | 'reference'>('builds');
+  const [currentView, setCurrentView] = useState<'builds' | 'tracker' | 'reference' | 'mutations'>('builds');
   
   // Theme State
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
@@ -77,10 +78,10 @@ const App: React.FC = () => {
               </div>
            </div>
 
-           <div className="flex items-center gap-3 bg-white dark:bg-slate-800 p-2 rounded-full shadow-sm border border-slate-200 dark:border-slate-700">
+           <div className="flex items-center gap-3 bg-white dark:bg-slate-800 p-2 rounded-full shadow-sm border border-slate-200 dark:border-slate-700 overflow-x-auto max-w-full">
              
              {/* Navigation Pills */}
-             <div className="flex bg-slate-100 dark:bg-slate-700 rounded-full p-1 overflow-x-auto">
+             <div className="flex bg-slate-100 dark:bg-slate-700 rounded-full p-1">
                <button 
                  onClick={() => setCurrentView('builds')}
                  className={`px-4 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
@@ -109,7 +110,17 @@ const App: React.FC = () => {
                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
                  }`}
                >
-                 Reference
+                 Buffs
+               </button>
+               <button 
+                 onClick={() => setCurrentView('mutations')}
+                 className={`px-4 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
+                   currentView === 'mutations' 
+                   ? 'bg-white dark:bg-slate-600 text-xmas-green shadow-sm' 
+                   : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                 }`}
+               >
+                 Mutations
                </button>
              </div>
 
@@ -143,6 +154,10 @@ const App: React.FC = () => {
 
           {currentView === 'reference' && (
             <BuffReference />
+          )}
+
+          {currentView === 'mutations' && (
+            <MutationReference />
           )}
         </main>
 

@@ -67,9 +67,6 @@ const BuffReference: React.FC = () => {
         <h2 className="font-holiday text-3xl font-bold text-slate-900 dark:text-white mb-2">
           Museum Buff Reference
         </h2>
-        <p className="text-slate-500 dark:text-slate-400">
-          Minimum weights needed for maximum buff values.
-        </p>
       </div>
 
       <div className="overflow-x-auto pb-4 -mx-4 px-4">
